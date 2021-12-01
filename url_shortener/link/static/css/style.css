@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&family=Roboto:wght@100&display=swap');
+
+:root {
+    --primary-font: 'Late', sans-serif;
+    --header-font: 'Roboto', sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html, body { margin: 0; }
+
+body { font-family: var(--primary-font); }
+
+h1 { font-family: var(--header-font); }
+
