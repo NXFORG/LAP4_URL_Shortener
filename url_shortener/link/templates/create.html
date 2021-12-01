@@ -1,10 +1,9 @@
 {% extends "index.html" %}
 
 {% block content %}
-    <h1>Welcome to the URL Shortener</h1>
     <form method="POST">
         {% csrf_token %}
         {{ form.as_p }}
-        <input type="submit" value="Login">
+        <input id="formSubmit" type="submit" value="submit">
     </form>
 {% endblock content %}
