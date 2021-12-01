@@ -3,11 +3,12 @@ from django.http import HttpResponse, Http404, HttpResponseRedirect
 from .models import Link
 from .forms import URLPostForm
 from .shorten import short
+import webbrowser
+from django.core.exceptions import ObjectDoesNotExist
 
 # Create your views here.
 
 def index(req):
-    #return HttpResponse("<h1>Welcome to URL Shortener<h1>")
     return render(req, 'index.html')
 
 def show(req, link):
@@ -15,7 +16,6 @@ def show(req, link):
     return HttpResponse(f'<h3>URL: {site.website}!</h3>')
 
 def realurl(req, token):
-    print("realurl")
     url = Link.objects.filter(shortUrl=token)[0] 
     return redirect(url.url) 
 
@@ -24,27 +24,29 @@ def submitUrl(req):
     if req.method == 'POST':
         form = URLPostForm(req.POST)
         token = " "
-        print("gets here")
         if form.is_valid():
-            print("gets here")
-            # url = form.cleaned_data.get('url')
-            newUrl = form.save(commit=False)
-            # username = form.cleaned_data.get('username')
+            newUrl = form.save(commit=False)        
             token = short().issue_token()
-            # url.shortUrl= token
-            # url.save()
             newUrl.shortUrl = token
             newUrl.save()
-            
-            print("if")
-            print(newUrl)
-            return HttpResponse(f'<h3> {newUrl}!</h3>')
-            # return redirect('index')
+            print(newUrl.url)
+            print(newUrl.shortUrl)         
+            return HttpResponse(f'<a href="http://127.0.0.1:8000/{newUrl.shortUrl}"> http://127.0.0.1:8000/{newUrl.shortUrl} </a>')
     else:
-        print("else")
         form = URLPostForm()
         token = "Invalid Token"
         data = {'form': form, 'token':token}
     return render(req, 'create.html', data)
+
+
+def findWebsite(self, address):
+
+    try:
+        website = Link.objects.get(shortUrl=address)
+    except ObjectDoesNotExist:
+        return redirect('submitURL')
+
+    webbrowser.open(website.url)
+    return HttpResponse(f'{website.url}')
 
 
