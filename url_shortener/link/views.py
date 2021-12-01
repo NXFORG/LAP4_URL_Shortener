@@ -9,7 +9,7 @@ from django.core.exceptions import ObjectDoesNotExist
 # Create your views here.
 
 def index(req):
-    return render(req, 'index.html')
+    return render(req, 'home.html')
 
 def show(req, link):
     site = Link.objects.get(url=link)
@@ -30,8 +30,10 @@ def submitUrl(req):
             newUrl.shortUrl = token
             newUrl.save()
             print(newUrl.url)
-            print(newUrl.shortUrl)         
-            return HttpResponse(f'<a href="http://127.0.0.1:8000/{newUrl.shortUrl}"> http://127.0.0.1:8000/{newUrl.shortUrl} </a>')
+            print(newUrl.shortUrl)
+            link = {"link":f"http://127.0.0.1:8000/{newUrl.shortUrl}"}
+            return render(req, 'newLink.html', link)         
+            #return HttpResponse(f'<a href="http://127.0.0.1:8000/{newUrl.shortUrl}"> http://127.0.0.1:8000/{newUrl.shortUrl} </a>')
     else:
         form = URLPostForm()
         token = "Invalid Token"
@@ -47,6 +49,6 @@ def findWebsite(self, address):
         return redirect('submitURL')
 
     webbrowser.open(website.url)
-    return HttpResponse(f'{website.url}')
+    return redirect('index')
 
 

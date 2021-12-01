@@ -1,15 +1,71 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&family=Roboto:wght@100&display=swap');
 
 :root {
-    --primary-font: 'Late', sans-serif;
+    --primary-font: 'Lato', sans-serif;
     --header-font: 'Roboto', sans-serif;
+    --darkblue: #182654;
+    --lightblue: #3252a8;
 }
 
 * { box-sizing: border-box; }
 
 html, body { margin: 0; }
 
-body { font-family: var(--primary-font); }
+body { 
+    font-family: var(--primary-font); 
+    text-align: center;
+    background-color: azure;
+}
 
-h1 { font-family: var(--header-font); }
+nav {
+    background-color: var(--darkblue);
+    padding: 10px;
+}
 
+div a{
+    color: #fff;
+    text-decoration: none;
+}
+
+h1 { 
+    font-family: var(--header-font); 
+    margin: 50px 0 50px 0;
+}
+
+h3 { font-family: var(--header-font); }
+
+button, input[type="submit"] {
+    padding: 10px 50px 10px 50px;
+    background-color: darkred;
+    color: azure;
+    border-radius: 5px;
+    border: 0;
+    box-shadow: 2px 2px 5px gray;
+}
+
+button:hover, input[type="submit"]:hover {
+    cursor: pointer;
+    background-color: rgb(83, 8, 8);
+}
+
+form {
+    max-width: 20%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+label {
+    font-size: 1.2em;
+}
+
+input {
+    border: 2px solid var(--darkblue);;
+    padding: 5px;
+    font-size: 1.2em;
+    margin-top: 10px;
+    width: 100%;
+}
+
+input[type="submit"] {
+    font-size: 1em;
+}
